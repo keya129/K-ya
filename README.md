@@ -1,2 +1,2 @@
 # K-ya
-Maintainig Personal Checklist
+Maintaining Personal Checklist
