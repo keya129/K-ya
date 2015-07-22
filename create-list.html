@@ -1,0 +1,196 @@
+                                <!DOCTYPE html>
+                                <html ng-app="MyApp">
+                                    <head>
+                                        <meta charset="UTF-8">
+                                    <title>Login</title>
+
+
+                                    <script type="text/javascript" language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+                                </script>
+                                <script type="text/javascript" language="javascript">
+
+                                $j = jQuery.noConflict();
+
+                                </script>
+                                <script type="text/javascript" language="javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js">
+                                </script>
+                                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js">
+                                </script>		
+                                        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+
+                                        <script type="text/javascript" language="javascript">
+
+
+                                            angular.module('MyApp', [])
+                .controller('addlistctrl', [ '$scope',    
+                        function ($scope){
+                                //alert("");
+$scope.phoneNumberPattern = (function() {
+    var regexp = /^\(?(\d{3})\)?[ .-]?(\d{3})[ .-]?(\d{4})$/;
+    return {
+        test: function(value) {
+            if( $scope.requireTel === false ) {
+                return true;
+            }
+           
+            return regexp.test(value);
+        }
+    };
+})();
+                      $scope.people = {
+                          items:[
+                        {name:'Bag', quantity: 3, desc: 'Travel 2 + 1 cabin',price:0},
+                         {name:'Pen', quantity: 30, desc: 'Blue + Back',price:0},
+                         {name:'Paper Sheets', quantity: 100, desc: 'Rough sheets',price:0}
+                        ]};
+    $scope.sum = function(){
+        var total = 0;
+
+            angular.forEach($scope.people.items, function(item) {
+                total += parseInt((item.quantity) * (item.price));
+                total=parseInt(total);
+            })
+
+        return total;
+
+
+    }
+                      $scope.addPerson = function(){
+
+    $scope.people.items.push( {
+                            name: $scope.name,
+                            quantity:1,
+                            desc: $scope.desc,
+                            price:0
+                        });
+
+                      }; 
+
+                      $scope.removePerson = function(index){
+                        $scope.people.items.splice(index, 1);
+                      };  
+                            $scope.selectedRow = null;  // initialize our variable to null
+                  $scope.setClickedRow = function(index){  //function that sets the value of selectedRow to current index
+                     $scope.selectedRow = index;
+                  }
+                            $scope.checkrow=function(index){
+                                //alert(index);
+                                if(this.checked)
+                                tr.eq(index).addClass('active');
+
+                            };
+                    }]);	
+
+                    </script>
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+
+
+                                    <link href="css/bootstrap.css" rel="stylesheet" />
+                                       <link rel="stylesheet" href="css/style.css" />
+
+
+                                  </head>
+
+                                  <body ng-controller="addlistctrl">
+
+
+                                  <div class="container">
+
+                                <div class="row"> 
+                                    <div class="col-xs-offset-0 col-md-offset-4 col-xs-12 col-md-5"><h1>Create new checklist</h1>
+                                <p><a href="new-category.html">Back <span class="fontawesome-reply"></span></a></p>
+
+                              <form action="" method="post" class="form form--login  col-xs-offset-0 col-md-offset-4 col-xs-12 col-md-8" novalidate>
+
+                                <div class="form__field">
+                                  <label class="fontawesome-ok" for="submit__checklistitem"><span class="hidden">Checklist Item Name</span></label>
+                                  <input id="submit__checklistitem" type="text" class="form__input" placeholder="Checklist Item Name" required ng-model="name">
+                                </div>
+
+                                   <div class="form__field">
+                                  <label class="fontawesome-ok" for="submit__checklistitemdesc"><span class="hidden">Checklist Item Description</span></label>
+                                  <input id="submit__checklistitemdesc" type="text" class="form__input" placeholder="Checklist Item Description" required ng-model="desc">
+                                </div>
+
+                                <div class="form__field">
+                                  <input type="button" value="ADD" ng-click="addPerson()">
+                                </div>
+
+                              </form>
+
+                                    </div>
+
+                                </div>
+                                   <form action=""  class="myForm  row" name="myForm">   
+                                      <table id="mychecklist" class="rad-responsive" >
+                           <thead>
+                             <tr>
+                               <th>
+                                  Name
+                               </th>
+                               <th>
+                                  Quantity
+                              </th>
+                              <th>
+                                  Comments
+                              </th>
+                                 <th>
+                                  Price
+                              </th>
+                              <th>
+                Done
+                              </th>
+                                 <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                             <tr ng-repeat="item in people.items" ng-class="{'selected':ticked}">
+                               <th>
+                                 {{ item.name }}
+                              </th>
+
+                              <td >
+
+                                 <input type="text" ng-model="item.quantity" class="sumup" value="{{ item.quantity }}" ng-disabled="ticked" min="0" required string-to-number /> 
+                              </td>
+                              <td>
+                                 {{ item.desc }}
+                              </td>
+                                 <td>
+                                <input type="number" ng-model="item.price" class="sumup" value="0" ng-disabled="ticked" min="0" ng-pattern="phoneNumberPattern"  required string-to-number />
+                              </td>
+                                 <td>
+                                 <input type="checkbox" ng-model="ticked" />
+                                 </td>
+                              <td>
+                                 <button type="button" ng-click="removePerson($index)">Remove</button>
+                              </td>
+                            </tr>
+                         <tr class="footer"><td></td><td></td><td></td><td>{{ sum() | currency}}</td><td></td><td></td></tr> </tbody>  
+                        </table>
+                                      <div role="alert">
+    <span class="error" ng-show="myForm.input.$error.required">
+      Required!</span>
+    <span class="error" ng-show="myForm.input.$error.number">
+      Not valid number!</span>
+  </div>
+
+  <tt>myForm.input.$valid = {{myForm.input.$valid}}</tt><br/>
+  <tt>myForm.input.$error = {{myForm.input.$error}}</tt><br/>
+  <tt>myForm.$valid = {{myForm.$valid}}</tt><br/>
+  <tt>myForm.$error.required = {{!!myForm.$error.required}}</tt><br/>
+
+                                  </div> 
+                                      </div></form>
+                                      <script src="js/main.js"></script>
+                 <script src="js/responsive-table.js">
+                                </script>
+                                </body>
+
+
+
+
+
+                                </html>
