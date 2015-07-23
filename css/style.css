@@ -247,7 +247,7 @@ table tbody .selected th {
   color: #ffffff;
 }
 /* line 282, ../scss/style.scss */
-table tbody input[type='text'] {
+table tbody input[type='number'] {
   width: 60px;
   text-align: center;
 }
@@ -255,4 +255,9 @@ table tbody input[type='text'] {
 table tbody .footer td {
   color: #ffffff;
   font-weight: bold;
+}
+
+/* line 291, ../scss/style.scss */
+input.ng-dirty.ng-invalid {
+  border: 1px solid red;
 }

@@ -279,7 +279,7 @@ table{
       color:#ffffff;
     }
  tbody{
-    input[type='text']{
+    input[type='number']{
      width:60px;
          text-align: center;
      }
@@ -287,4 +287,7 @@ table{
          td{color:#ffffff;font-weight:bold;}  
      }
  }
+}
+input.ng-dirty.ng-invalid {
+  border:1px solid red;
 }
